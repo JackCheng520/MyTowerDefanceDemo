@@ -34,4 +34,5 @@ namespace TowerDefence.FSM.Config
 
         public const string CONDITION_MOVE_TO_IDLE = "CONDITION_MOVE_TO_IDLE";
     }
+
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TowerDefence.Skills;
 
 // ================================
 //* 功能描述：Tower  
@@ -12,6 +13,8 @@ namespace TowerDefence.AI
 {
     public abstract class Tower : Charactor
     {
-        
+        public int level;
+
+        public Skill skill;
     }
 }
