@@ -22,6 +22,13 @@ namespace TowerDefence.AI
 
         public int hp;
 
+        public bool IsAlive 
+        {
+            get {
+                return hp > 0;
+            }
+        }
+
         public Fsm fsm;
 
         void Awake() 
@@ -46,6 +53,7 @@ namespace TowerDefence.AI
             this.OnExit();
         }
 
+        //-------------------------------------------------------
         public virtual void OnInit() { }
 
         public virtual void OnExit() { }

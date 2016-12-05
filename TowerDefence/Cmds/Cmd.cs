@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TowerDefence.Skills;
 using UnityEngine;
 
 // ================================
@@ -14,9 +13,6 @@ namespace TowerDefence.Cmds
 {
     public class Cmd : MonoBehaviour
     {
-        [HideInInspector]
-        public Skill currentSk;
-
         public virtual void Run(params object[] args) 
         { 
         

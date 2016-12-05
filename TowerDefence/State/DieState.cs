@@ -19,7 +19,7 @@ namespace TowerDefence.STATE
         public override void OnEnter(FSM.Fsm _fsm)
         {
             base.OnEnter(_fsm);
-            MonsterBase m = (MonsterBase)_fsm.ME;
+            Monster m = (Monster)_fsm.ME;
             //死亡广播消息
             GameApp.messageControl.SendMsg(null, MsgType.MSG_MONSTER_DIE, m.id);
         }

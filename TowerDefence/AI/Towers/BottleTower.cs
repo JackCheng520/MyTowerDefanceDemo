@@ -34,18 +34,11 @@ namespace TowerDefence.AI
         public override void OnExit()
         {
             base.OnExit();
-
         }
 
         public override void OnUpdate()
         {
             base.OnUpdate();
-
-            if (skill.listTargets.Count > 0) 
-            {
-                Charactor c = skill.listTargets[0];
-                GameApp.resourcesControl.LoadWeapon("");
-            }
         }
 
         public override void OnLateUpdate()
@@ -54,17 +47,26 @@ namespace TowerDefence.AI
         }
 
         //----------------------------------------
-        public override void UseSkill()
+
+        public override void Launch()
         {
-            base.UseSkill();
+            base.Launch();
 
+            if (listTargets.Count > 0 && canLaunch)
+            {
+                Charactor c = listTargets[0];
+                GameObject w = GameApp.resourcesControl.LoadWeapon("");
+                BottleWeapon weapon = w.GetComponent<BottleWeapon>();
+                weapon.listMonsters.Add(c);
+                weapon.Launch();
 
+            }
         }
 
         public override void RadarSearch()
         {
             base.RadarSearch();
-            if (skill.listTargets.Count == 0)
+            if (listTargets.Count == 0)
             {
                 List<Charactor> listTemp = GameApp.charactorControl.GetCharactorList(CharactorType.CHARACTOR_MONSTER);
                 List<Charactor> listMonster = new List<Charactor>();
@@ -82,7 +84,7 @@ namespace TowerDefence.AI
                     listMonster.Sort(Compare);
 
 
-                    skill.listTargets.Add(listTemp[0]);
+                    listTargets.Add(listTemp[0]);
                 }
             }
         }

@@ -24,14 +24,16 @@ namespace TowerDefence.AI
 
         public float duration;
 
-        public List<Charactor> listMonsters;
+        public TowerBase launcher;
+
+        public List<Charactor> listMonsters = new List<Charactor>();
 
         Echo echoSystem = new Echo();
 
-        private bool beFinish = false;
+        private bool beLaunch = false;
         void Update()
         {
-            if (!beFinish)
+            if (beLaunch)
             {
                 echoSystem.Update();
 
@@ -44,7 +46,8 @@ namespace TowerDefence.AI
 
         private void OnTimeOver(params object[] args)
         {
-            beFinish = true;
+            beLaunch = false;
+            launcher.canLaunch = true;
             GameApp.messageControl.SendMsg(this, MsgType.MSG_WEAPON_TIME_OVER);
 
             Delete();
@@ -57,10 +60,10 @@ namespace TowerDefence.AI
         }
 
         //-----------------------------------------
-        public virtual void Init()
+        public virtual void Launch()
         {
-            beFinish = false;
-            listMonsters = GameApp.charactorControl.GetCharactorList(CharactorType.CHARACTOR_MONSTER);
+            beLaunch = true;
+            launcher.canLaunch = false;
             echoSystem.Add(OnTimeOver, duration);
         }
 
@@ -69,6 +72,7 @@ namespace TowerDefence.AI
 
         public virtual void OnHit(string _monsterId)
         {
+            launcher.canLaunch = true;
             GameApp.messageControl.SendMsg(this, MsgType.MSG_WEAPON_TIME_OVER);
         }
     }

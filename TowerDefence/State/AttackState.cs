@@ -20,6 +20,8 @@ namespace TowerDefence.STATE
         public override void OnEnter(FSM.Fsm _fsm)
         {
             base.OnEnter(_fsm);
+            tower = _fsm.ME as TowerBase;
+            tower.canLaunch = true;
         }
 
         public override void OnExecute(FSM.Fsm _fsm)
@@ -29,12 +31,14 @@ namespace TowerDefence.STATE
             tower = _fsm.ME as TowerBase;
             if (tower != null) 
             {
-                tower.UseSkill();
+                tower.Launch();
             }
         }
 
         public override void OnExit(FSM.Fsm _fsm)
         {
+            tower = _fsm.ME as TowerBase;
+            tower.canLaunch = false;
             base.OnExit(_fsm);
         }
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using TowerDefence.FSM;
 using TowerDefence.Msg;
-using TowerDefence.Skills;
+using TowerDefence.Util;
 
 // ================================
 //* 功能描述：Tower  
@@ -20,9 +20,17 @@ namespace TowerDefence.AI
         /// </summary>
         public bool AutoSearch = true;
 
+        public bool canLaunch = false;
+        /// <summary>
+        /// 塔的数据
+        /// </summary>
         public TowerVo voData;
+        /// <summary>
+        /// 目标列表
+        /// </summary>
+        public List<Charactor> listTargets = new List<Charactor>();
 
-        public Skill skill;
+        Echo echoSystem = new Echo();
 
         public override void OnInit()
         {
@@ -42,9 +50,14 @@ namespace TowerDefence.AI
         {
             base.OnUpdate();
 
-            if (AutoSearch) 
+            if (GameApp.gameData.settingTarget != null &&
+                GameApp.gameData.settingTarget.IsAlive)
             {
-                RadarSearch();
+                AutoSearch = false;
+            }
+            else 
+            {
+                AutoSearch = true;
             }
         }
 
@@ -54,9 +67,28 @@ namespace TowerDefence.AI
         }
 
         //----------------------------------
-        public virtual void UseSkill() { }
 
-        public virtual void RadarSearch() { }
+        public virtual void RadarSearch()
+        {
+
+        }
+
+        public virtual void Launch()
+        {
+            if (AutoSearch)
+            {
+                RadarSearch();
+            }
+            else 
+            {
+                if (GameApp.gameData.settingTarget != null &&
+                    GameApp.gameData.settingTarget.IsAlive)
+                {
+                    listTargets.Clear();
+                    listTargets.Add(GameApp.gameData.settingTarget);
+                }
+            }
+        }
 
 
         //----------------------------------------回调-----------------------------------
@@ -65,23 +97,24 @@ namespace TowerDefence.AI
 
         }
 
-        public virtual void OnMonsterDie(object sender, MsgArgs e) 
+        public virtual void OnMonsterDie(object sender, MsgArgs e)
         {
             string monsterId = e.listParams[0].ToString();
-            if (skill.listTargets.Count > 0) 
+            if (listTargets.Count > 0)
             {
                 int idx = -1;
-                for (int i = 0; i < skill.listTargets.Count; i++) 
+                for (int i = 0; i < listTargets.Count; i++)
                 {
-                    if (skill.listTargets[i].id.Equals(monsterId)) 
+                    if (listTargets[i].id.Equals(monsterId))
                     {
                         idx = i;
                         break;
                     }
                 }
 
-                if (idx != -1) {
-                    skill.listTargets.RemoveAt(idx);
+                if (idx != -1)
+                {
+                    listTargets.RemoveAt(idx);
                 }
             }
         }

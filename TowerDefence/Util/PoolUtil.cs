@@ -6,28 +6,23 @@ using TowerDefence.Define;
 using UnityEngine;
 
 // ================================
-//* 功能描述：PoolUtil  
+//* 功能描述：子弹对象池  
 //* 创 建 者：chenghaixiao
 //* 创建日期：2016/12/2 16:30:32
 // ================================
 namespace TowerDefence.Util
 {
+    public class PoolKey
+    {
+        public const string KEY_BOTTLE_WEAPON = "KEY_BOTTLE_WEAPON";
+    }
+
     public class PoolUtil
     {
-        private static PoolUtil ins;
-        public static PoolUtil Ins {
-            get {
-                if (ins == null) {
-                    ins = new PoolUtil();
-                }
-                return ins;
-            }
-        }
-
         public static int count = 0;
 
         ////池子容量
-        private int capacity = 10;
+        private int capacity = 20;
 
         private Dictionary<string, List<GameObject>> activePool = new Dictionary<string, List<GameObject>>();
 
@@ -35,7 +30,8 @@ namespace TowerDefence.Util
 
         Echo echoSystem = new Echo();
 
-        public void Clear() {
+        public void Clear()
+        {
             count = 0;
             activePool.Clear();
             disActivePool.Clear();
@@ -60,7 +56,13 @@ namespace TowerDefence.Util
             }
             else
             {
-                go = GameObject.Instantiate(Resources.Load("BottleSkill") as GameObject);
+                switch (_type)
+                {
+                    case PoolKey.KEY_BOTTLE_WEAPON:
+                        go = GameApp.resourcesControl.LoadWeapon("");
+                        break;
+                }
+
             }
 
             if (activePool.ContainsKey(_type))
@@ -110,7 +112,7 @@ namespace TowerDefence.Util
                         disActivePool[_type].Add(_go);
                     }
                 }
-                
+
             }
             else
             {

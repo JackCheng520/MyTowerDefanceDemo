@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TowerDefence.Msg;
+using TowerDefence.Util;
 
 // ================================
 //* 功能描述：GameApp  
@@ -21,12 +22,17 @@ namespace TowerDefence
 
         public static ResourcesControl resourcesControl;
 
+        public static GameData gameData;
+
+        public static PoolUtil weaponPool;
+
         public static void Init() 
         {
             dataCache           = new DataCache();
             messageControl      = new Message();
             charactorControl    = new CharactorsControl();
             resourcesControl    = new ResourcesControl();
+            gameData            = new GameData();
         }
     }
 }

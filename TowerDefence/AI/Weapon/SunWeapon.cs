@@ -11,12 +11,26 @@ using UnityEngine;
 // ================================
 namespace TowerDefence.AI
 {
-    public class CircleWeapon : WeaponBase
+    public class SunWeapon : WeaponBase
     {
         /// <summary>
         /// 半径
         /// </summary>
         public float radius;
+
+        public override void Launch()
+        {
+            base.Launch();
+
+            if (listMonsters.Count > 0)
+            {
+                name = "SunWeapon";
+                //dir = (listMonsters[0].transform.position - launcher.transform.position).normalized;
+                speed = 0.2f;
+                duration = 0.5f;
+            }
+        }
+
         public override void OnHit(string _monsterId)
         {
             base.OnHit(_monsterId);
@@ -30,7 +44,7 @@ namespace TowerDefence.AI
 
             for (int i = 0; i < listMonsters.Count; i++)
             {
-                if ((listMonsters[i] as MonsterBase).BeInCircle(this))
+                if ((listMonsters[i] as Monster).BeInCircle(this))
                 {
                     
                     OnHit(listMonsters[i].id);

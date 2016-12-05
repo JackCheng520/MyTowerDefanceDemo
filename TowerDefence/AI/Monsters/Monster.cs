@@ -12,11 +12,13 @@ using UnityEngine;
 // ================================
 namespace TowerDefence.AI
 {
-    public class MonsterBase : Charactor
+    public class Monster : Charactor
     {
+        public List<Vector3> listPath;
+
         public MonsterVo voData;
 
-        public Vector2 range;
+        public Vector2 volume;
 
         public override void OnInit()
         {
@@ -47,10 +49,10 @@ namespace TowerDefence.AI
         public bool BeHit(WeaponBase wb) 
         {
             Vector3 mPos = transform.position;
-            Vector3 topLeft     = new Vector3(mPos.x - range.x,mPos.y - range.y);
-            Vector3 topRight    = new Vector3(mPos.x + range.x,mPos.y - range.y);
-            Vector3 bottomLeft  = new Vector3(mPos.x - range.x,mPos.y + range.y);
-            Vector3 bottomRight = new Vector3(mPos.x + range.x,mPos.y + range.y);
+            Vector3 topLeft     = new Vector3(mPos.x - volume.x,mPos.y - volume.y);
+            Vector3 topRight    = new Vector3(mPos.x + volume.x,mPos.y - volume.y);
+            Vector3 bottomLeft  = new Vector3(mPos.x - volume.x,mPos.y + volume.y);
+            Vector3 bottomRight = new Vector3(mPos.x + volume.x,mPos.y + volume.y);
 
             return PointInRectangleUtil.IsPointInRectangle(topLeft, topRight, bottomRight, bottomLeft, wb.transform.position);
         }
@@ -61,7 +63,7 @@ namespace TowerDefence.AI
         /// <returns></returns>
         public bool BeInCircle(WeaponBase wb) 
         {
-            CircleWeapon cw = wb as CircleWeapon;
+            SunWeapon cw = wb as SunWeapon;
 
             Vector3 mPos = transform.position;
             if (Vector3.Distance(mPos, wb.transform.position) <= cw.radius) 

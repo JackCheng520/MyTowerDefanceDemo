@@ -20,15 +20,17 @@ namespace TowerDefence
         //塔
         public const string PATH_TOWER      = "";
         //怪物
-        public const string PATH_MONSTER    = "";
+        public const string PATH_MONSTER            = "";
         //萝卜
-        public const string PATH_RADISH     = "";
+        public const string PATH_RADISH             = "";
         //声音
-        public const string PATH_AUDIO      = "";
+        public const string PATH_AUDIO              = "";
         //特效
-        public const string PATH_EFFECT     = "";
+        public const string PATH_EFFECT             = "";
         //武器
-        public const string PATH_WEAPON     = "";
+        public const string PATH_WEAPON             = "";
+        //装饰物
+        public const string PATH_DECORATION         = "";
     }
     public class ResourcesControl
     {
@@ -51,6 +53,9 @@ namespace TowerDefence
                     break;
                 case CharactorType.CHARACTOR_RADISH:
                     obj = GameObject.Instantiate(Resources.Load(ResPath.PATH_RADISH + _name) as GameObject);
+                    break;
+                case CharactorType.CHARACTOR_DECORATION:
+                    obj = GameObject.Instantiate(Resources.Load(ResPath.PATH_DECORATION + _name) as GameObject);
                     break;
             }
 
