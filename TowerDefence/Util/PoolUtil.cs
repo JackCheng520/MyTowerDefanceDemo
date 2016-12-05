@@ -35,6 +35,12 @@ namespace TowerDefence.Util
 
         Echo echoSystem = new Echo();
 
+        public void Clear() {
+            count = 0;
+            activePool.Clear();
+            disActivePool.Clear();
+        }
+
         /// <summary>
         /// 创建新的子弹
         /// </summary>

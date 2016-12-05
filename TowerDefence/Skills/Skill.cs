@@ -20,13 +20,14 @@ namespace TowerDefence.Skills
 
         public Charactor launcher;
 
-        public List<Charactor> listTargets;
+        public List<Charactor> listTargets = new List<Charactor>();
 
         public List<Cmd> listCmds;
 
+
         Echo echoSystem = new Echo();
 
-        public GameObject goEff;
+        
 
         /// <summary>
         /// 指令集准备
@@ -55,6 +56,7 @@ namespace TowerDefence.Skills
                 }
             }
         }
+
         /// <summary>
         /// 删除
         /// </summary>

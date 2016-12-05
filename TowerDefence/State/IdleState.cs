@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TowerDefence.FSM;
 
 // ================================
 //* 功能描述：IdleState  
 //* 创 建 者：chenghaixiao
 //* 创建日期：2016/12/1 19:10:53
 // ================================
-namespace TowerDefence.FSM.STATE
+namespace TowerDefence.STATE
 {
     public class IdleState : State
     {

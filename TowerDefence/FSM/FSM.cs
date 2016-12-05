@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TowerDefence.FSM.STATE;
+using TowerDefence.AI;
+using TowerDefence.STATE;
 
 // ================================
 //* 功能描述：FSM  
@@ -16,8 +17,19 @@ namespace TowerDefence.FSM
     {
         private string fsmName;
 
-        public Fsm(string _name) 
+        private Charactor me;
+        public Charactor ME {
+            get {
+                return this.me;
+            }
+        }
+
+        public Fsm(Charactor _me) 
         {
+            this.me = _me;
+        }
+
+        public void SetFsmName(string _name) {
             this.fsmName = _name;
         }
 

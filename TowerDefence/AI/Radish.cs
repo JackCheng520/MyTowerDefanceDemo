@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using TowerDefence.FSM;
 using TowerDefence.FSM.Config;
-using TowerDefence.FSM.STATE;
+using TowerDefence.STATE;
 using TowerDefence.Util;
 using UnityEngine;
 
@@ -24,13 +24,13 @@ namespace TowerDefence.AI
 
         private bool idleToMove = false;
 
-        Fsm fsm = new Fsm("Radish");
-
         Echo echoSytem = new Echo();
 
         public override void OnInit()
         {
             base.OnInit();
+            fsm.SetFsmName("Radish");
+
             //Debug.Log("-----OnInit-----");
             fsm.AddState(new IdleState(StateType.IDLE));
             fsm.AddState(new MoveState(StateType.MOVE));
