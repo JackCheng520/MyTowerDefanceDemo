@@ -18,16 +18,16 @@ namespace TowerDefence.Util
         /// </summary>
         /// <param name="_waypoint"></param>
         /// <returns></returns>
-        public static List<Vector3> GetPath(Vector3[] _waypoint)
+        public static List<Vector3> GetPath(List<Vector3> _waypoint)
         {
             List<Vector3> listPath = new List<Vector3>();
-            Vector3[] vector3s = PathControlPointGenerator(_waypoint);
+            Vector3[] vector3s = PathControlPointGenerator(_waypoint.ToArray());
 
             //Line Draw:
             Vector3 prevPt = Interp(vector3s, 0);
             listPath.Add(prevPt);
 
-            int SmoothAmount = _waypoint.Length * 20;
+            int SmoothAmount = _waypoint.Count * 20;
             for (int i = 1; i <= SmoothAmount; i++)
             {
                 float pm = (float)i / SmoothAmount;
@@ -98,9 +98,10 @@ namespace TowerDefence.Util
         public static void DrawPath(List<Vector3> _path,Color _color) 
         {
             Gizmos.color = _color;
-            for (int i = 0; i < _path.Count - 1; i++) 
+            for (int i = 0; i < _path.Count; i++) 
             {
-                Gizmos.DrawLine(_path[i], _path[i+1]);
+                if(i+1 < _path.Count)
+                    Gizmos.DrawLine(_path[i], _path[i + 1]);
             }    
         }
     }

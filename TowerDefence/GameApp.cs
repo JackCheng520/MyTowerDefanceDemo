@@ -26,6 +26,8 @@ namespace TowerDefence
 
         public static PoolUtil weaponPool;
 
+        public static LevelControl levelControl;
+
         public static void Init() 
         {
             dataCache           = new DataCache();
@@ -33,6 +35,7 @@ namespace TowerDefence
             charactorControl    = new CharactorsControl();
             resourcesControl    = new ResourcesControl();
             gameData            = new GameData();
+            levelControl        = new LevelControl();
         }
     }
 }
